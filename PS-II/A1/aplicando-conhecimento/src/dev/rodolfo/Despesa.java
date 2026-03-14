@@ -1,12 +1,14 @@
 package dev.rodolfo;
 
+import dev.rodolfo.exception.ValorInvalidoException;
+
 import java.time.LocalDate;
 
 public class Despesa extends Transacao {
 
     public Despesa() {}
 
-    public Despesa(String descricao, Double valor, LocalDate data) {
+    public Despesa(String descricao, Double valor, LocalDate data) throws ValorInvalidoException {
         super(descricao, valor, data);
     }
 

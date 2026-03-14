@@ -1,12 +1,14 @@
 package dev.rodolfo;
 
+import dev.rodolfo.exception.ValorInvalidoException;
+
 import java.time.LocalDate;
 
 public class Receita extends Transacao implements Tributavel {
 
     public Receita() {}
 
-    public Receita(String descricao, Double valor, LocalDate data) {
+    public Receita(String descricao, Double valor, LocalDate data) throws ValorInvalidoException {
         super(descricao, valor, data);
     }
 

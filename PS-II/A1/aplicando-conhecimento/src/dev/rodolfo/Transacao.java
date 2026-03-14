@@ -1,5 +1,7 @@
 package dev.rodolfo;
 
+import dev.rodolfo.exception.ValorInvalidoException;
+
 import java.time.LocalDate;
 
 abstract class Transacao {
@@ -12,7 +14,11 @@ abstract class Transacao {
 
     public Transacao() {}
 
-    public Transacao(String descricao, Double valor, LocalDate data) {
+    public Transacao(String descricao, Double valor, LocalDate data) throws ValorInvalidoException {
+        if (valor <= 0) throw new ValorInvalidoException("O valor da transação deve ser maior que zero");
+
+        if (descricao == null || descricao.isBlank()) throw new IllegalArgumentException("A descrição não pode ser vazia.");
+
         this.descricao = descricao;
         this.valor = valor;
         this.data = data;
@@ -23,6 +29,8 @@ abstract class Transacao {
     }
 
     public void setDescricao(String descricao) {
+        if (descricao == null || descricao.isBlank()) throw new IllegalArgumentException("A descrição não pode ser vazia.");
+
         this.descricao = descricao;
     }
 
@@ -30,7 +38,9 @@ abstract class Transacao {
         return valor;
     }
 
-    public void setValor(Double valor) {
+    public void setValor(Double valor) throws ValorInvalidoException {
+        if (valor <= 0) throw new ValorInvalidoException("O valor da transação deve ser maior que zero");
+
         this.valor = valor;
     }
 
