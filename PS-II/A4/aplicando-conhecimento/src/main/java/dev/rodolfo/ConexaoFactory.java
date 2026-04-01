@@ -1,0 +1,20 @@
+package dev.rodolfo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ConexaoFactory {
+
+    private static final String URL = "jdbc:mariadb://localhost:3306/minha_carteira";
+    private static final String USUARIO = "rodolfo";
+    private static final String SENHA = "Senha123";
+
+    public static Connection conectar() {
+        try {
+            return DriverManager.getConnection(URL, USUARIO, SENHA);
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao conectar ao banco de dados: " + e.getMessage(), e);
+        }
+    }
+}
