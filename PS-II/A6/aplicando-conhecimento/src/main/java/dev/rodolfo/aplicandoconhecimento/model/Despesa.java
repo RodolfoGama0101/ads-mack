@@ -1,0 +1,26 @@
+package dev.rodolfo.aplicandoconhecimento.model;
+
+import dev.rodolfo.aplicandoconhecimento.exception.ValorInvalidoException;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+import java.time.LocalDate;
+
+@Entity
+@DiscriminatorValue("DESPESA")
+public class Despesa extends Transacao {
+
+    public Despesa() {}
+
+    public Despesa(String descricao, Double valor, LocalDate data) throws ValorInvalidoException {
+        super(descricao, valor, data);
+    }
+
+    @Override
+    public void exibirDetalhes() {
+        System.out.println("--- Despesa ---");
+        System.out.println("Descrição: " + this.getDescricao());
+        System.out.println("Valor: " + this.getValor());
+        System.out.println("Data: " + this.getData());
+    }
+}
