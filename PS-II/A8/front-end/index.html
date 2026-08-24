@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Carteira</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #e9ecef;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            border-left: 5px solid #007bff;
+        }
+        .tipo-RECEITA { border-left-color: #28a745; }
+        .tipo-DESPESA { border-left-color: #dc3545; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Minha Carteira</h1>
+        <ul id="lista-transacoes"></ul>
+    </div>
+
+    <script>
+        function carregarTransacoes() {
+            fetch("http://localhost:8045/transacoes")
+                .then(response => response.json())
+                .then(transacoes => {
+                    const lista = document.getElementById("lista-transacoes");
+                    lista.innerHTML = ""; 
+
+                    transacoes.forEach(transacao => {
+                        const item = document.createElement("li");
+                        
+                        item.textContent = `${transacao.descricao} - R$ ${transacao.valor.toFixed(2)} (${transacao.tipoTransacao})`;
+                        
+                        item.classList.add(`tipo-${transacao.tipoTransacao}`);
+                        
+                        lista.appendChild(item);
+                    });
+                })
+                .catch(error => console.error("Erro ao carregar transações:", error));
+        }
+
+        document.addEventListener("DOMContentLoaded", carregarTransacoes);
+    </script>
+</body>
+</html>
